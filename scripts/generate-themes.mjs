@@ -18,10 +18,19 @@ function alpha(color, opacity) {
   return `${color}${channel}`.toLowerCase();
 }
 
-function workbenchColors(palette, status, appearance) {
+function workbenchColors(palette, status, git, appearance) {
   const dark = appearance === "dark";
   const selected = dark ? palette.action : palette.navy;
   const onSelected = dark ? palette.onAction : palette.onNavy;
+  const listActiveBackground = dark ? selected : palette.wash;
+  const listActiveForeground = dark ? onSelected : palette.navy;
+  const listInactiveBackground = dark
+    ? alpha(selected, 0.18)
+    : palette.raised;
+  const listInactiveForeground = dark ? palette.text : palette.navy;
+  const listFocusBackground = dark ? alpha(selected, 0.24) : palette.wash;
+  const activityActiveBackground = dark ? palette.wash : palette.onNavy;
+  const activityActiveForeground = dark ? palette.onNavy : palette.navy;
   const success = dark ? status.success.border : status.success.text;
   const warning = dark ? status.warning.border : status.warning.text;
   const danger = status.danger.text;
@@ -98,21 +107,23 @@ function workbenchColors(palette, status, appearance) {
     "badge.foreground": onSelected,
     "progressBar.background": palette.action,
 
-    "list.activeSelectionBackground": selected,
-    "list.activeSelectionForeground": onSelected,
-    "list.activeSelectionIconForeground": onSelected,
-    "list.inactiveSelectionBackground": alpha(selected, 0.18),
-    "list.inactiveSelectionForeground": palette.text,
-    "list.inactiveSelectionIconForeground": palette.text,
-    "list.focusBackground": alpha(selected, 0.24),
-    "list.focusForeground": palette.text,
+    "list.activeSelectionBackground": listActiveBackground,
+    "list.activeSelectionForeground": listActiveForeground,
+    "list.activeSelectionIconForeground": listActiveForeground,
+    "list.inactiveSelectionBackground": listInactiveBackground,
+    "list.inactiveSelectionForeground": listInactiveForeground,
+    "list.inactiveSelectionIconForeground": listInactiveForeground,
+    "list.focusBackground": listFocusBackground,
+    "list.focusForeground": listInactiveForeground,
     "list.focusHighlightForeground": palette.linkHover,
     "list.focusOutline": palette.focus,
-    "list.inactiveFocusBackground": alpha(selected, 0.12),
+    "list.inactiveFocusBackground": dark
+      ? alpha(selected, 0.12)
+      : palette.raised,
     "list.inactiveFocusOutline": palette.focus,
     "list.focusAndSelectionOutline": dark
       ? palette.onAction
-      : palette.focusInverse,
+      : palette.focus,
     "list.hoverBackground": alpha(palette.raised, 0.72),
     "list.hoverForeground": palette.text,
     "list.highlightForeground": palette.link,
@@ -129,13 +140,19 @@ function workbenchColors(palette, status, appearance) {
     "tree.tableOddRowsBackground": alpha(palette.raised, 0.32),
 
     "activityBar.background": palette.navy,
-    "activityBar.foreground": palette.onNavy,
+    "activityBar.foreground": activityActiveForeground,
     "activityBar.inactiveForeground": alpha(palette.onNavy, 0.66),
     "activityBar.border": palette.focusInverse,
     "activityBar.activeBorder": palette.focusInverse,
-    "activityBar.activeBackground": alpha(palette.onNavy, 0.1),
-    "activityBar.activeFocusBorder": palette.onNavy,
+    "activityBar.activeBackground": activityActiveBackground,
+    "activityBar.activeFocusBorder": activityActiveForeground,
     "activityBar.dropBorder": palette.focusInverse,
+    "activityBarTop.background": palette.navy,
+    "activityBarTop.foreground": activityActiveForeground,
+    "activityBarTop.inactiveForeground": alpha(palette.onNavy, 0.66),
+    "activityBarTop.activeBackground": activityActiveBackground,
+    "activityBarTop.activeBorder": palette.focusInverse,
+    "activityBarTop.dropBorder": palette.focusInverse,
     "activityBarBadge.background": palette.action,
     "activityBarBadge.foreground": palette.onAction,
     "activityWarningBadge.background": status.warning.background,
@@ -150,6 +167,7 @@ function workbenchColors(palette, status, appearance) {
     "sideBarTitle.background": palette.canvas,
     "sideBarTitle.foreground": palette.text,
     "sideBarTitle.border": palette.border,
+    "sideBarActivityBarTop.border": palette.border,
     "sideBarSectionHeader.background": palette.wash,
     "sideBarSectionHeader.foreground": palette.text,
     "sideBarSectionHeader.border": palette.border,
@@ -668,16 +686,16 @@ function workbenchColors(palette, status, appearance) {
       ? palette.text
       : alpha(palette.text, 0.86),
 
-    "gitDecoration.addedResourceForeground": status.success.text,
-    "gitDecoration.modifiedResourceForeground": status.warning.text,
-    "gitDecoration.deletedResourceForeground": status.danger.text,
-    "gitDecoration.renamedResourceForeground": status.info.text,
-    "gitDecoration.untrackedResourceForeground": status.success.text,
+    "gitDecoration.addedResourceForeground": git.added,
+    "gitDecoration.modifiedResourceForeground": git.modified,
+    "gitDecoration.deletedResourceForeground": git.deleted,
+    "gitDecoration.renamedResourceForeground": git.renamed,
+    "gitDecoration.untrackedResourceForeground": git.added,
     "gitDecoration.ignoredResourceForeground": alpha(palette.muted, 0.72),
-    "gitDecoration.conflictingResourceForeground": status.danger.text,
+    "gitDecoration.conflictingResourceForeground": palette.purple,
     "gitDecoration.submoduleResourceForeground": palette.blueInk,
-    "gitDecoration.stageModifiedResourceForeground": status.info.text,
-    "gitDecoration.stageDeletedResourceForeground": status.danger.text,
+    "gitDecoration.stageModifiedResourceForeground": git.modified,
+    "gitDecoration.stageDeletedResourceForeground": git.deleted,
 
     "testing.iconFailed": danger,
     "testing.iconErrored": status.danger.border,
@@ -1354,6 +1372,7 @@ function buildTheme(source, slug, appearance) {
   const definition = source.themes[slug];
   const palette = definition[appearance].colors;
   const status = source.status[appearance];
+  const git = source.git[appearance];
   const appearanceLabel = appearance === "dark" ? "Dark" : "Light";
 
   return {
@@ -1361,7 +1380,7 @@ function buildTheme(source, slug, appearance) {
     "name": `${definition.displayName} ${appearanceLabel}`,
     "type": appearance,
     "semanticHighlighting": true,
-    "colors": workbenchColors(palette, status, appearance),
+    "colors": workbenchColors(palette, status, git, appearance),
     "tokenColors": tokenColors(palette, status),
     "semanticTokenColors": semanticTokenColors(palette, status),
   };
