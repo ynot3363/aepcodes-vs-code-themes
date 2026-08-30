@@ -1,0 +1,90 @@
+{
+  "name": "aepcodes-themes",
+  "displayName": "AEPCodes Themes",
+  "description": "Six warm, tactile light and dark color themes for Visual Studio Code.",
+  "version": "1.0.1",
+  "publisher": "aepcodes",
+  "license": "AGPL-3.0-only",
+  "icon": "images/aepcodes-themes-icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ynot3363/aepcodes-vs-code-themes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ynot3363/aepcodes-vs-code-themes/issues"
+  },
+  "homepage": "https://github.com/ynot3363/aepcodes-vs-code-themes#readme",
+  "engines": {
+    "vscode": "^1.90.0",
+    "node": "24.x"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "keywords": [
+    "aepcodes",
+    "color-theme",
+    "dark-theme",
+    "light-theme",
+    "sicilian",
+    "theme"
+  ],
+  "galleryBanner": {
+    "color": "#153249",
+    "theme": "dark"
+  },
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": {
+      "supported": true
+    }
+  },
+  "contributes": {
+    "themes": [
+      {
+        "label": "Caltagirone Dusk Light",
+        "uiTheme": "vs",
+        "path": "./themes/aepcodes-caltagirone-dusk-light-color-theme.json"
+      },
+      {
+        "label": "Caltagirone Dusk Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/aepcodes-caltagirone-dusk-dark-color-theme.json"
+      },
+      {
+        "label": "Etna & Travertine Light",
+        "uiTheme": "vs",
+        "path": "./themes/aepcodes-etna-travertine-light-color-theme.json"
+      },
+      {
+        "label": "Etna & Travertine Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/aepcodes-etna-travertine-dark-color-theme.json"
+      },
+      {
+        "label": "Conca d'Oro Light",
+        "uiTheme": "vs",
+        "path": "./themes/aepcodes-conca-doro-light-color-theme.json"
+      },
+      {
+        "label": "Conca d'Oro Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/aepcodes-conca-doro-dark-color-theme.json"
+      }
+    ]
+  },
+  "scripts": {
+    "generate": "node scripts/generate-themes.mjs",
+    "check:generated": "node scripts/generate-themes.mjs --check",
+    "validate": "node scripts/validate.mjs",
+    "check": "npm run check:generated && npm run validate",
+    "package": "npm run check && vsce package --allow-missing-repository --out aepcodes-themes.vsix",
+    "publish:marketplace": "npm run check && vsce publish --allow-missing-repository",
+    "vscode:prepublish": "npm run check"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "3.9.2"
+  }
+}

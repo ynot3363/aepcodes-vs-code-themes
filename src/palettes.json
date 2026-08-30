@@ -1,0 +1,256 @@
+{
+  "schemaVersion": "1.0.0",
+  "primitiveOrder": [
+    "canvas",
+    "surface",
+    "raised",
+    "wash",
+    "text",
+    "muted",
+    "navy",
+    "onNavy",
+    "blue",
+    "blueInk",
+    "brass",
+    "brassInk",
+    "action",
+    "actionHover",
+    "onAction",
+    "pink",
+    "link",
+    "linkHover",
+    "border",
+    "borderStrong",
+    "focus",
+    "focusInverse",
+    "purple"
+  ],
+  "status": {
+    "light": {
+      "info": {
+        "background": "#d4e2e5",
+        "text": "#244e61",
+        "border": "#527a88"
+      },
+      "warning": {
+        "background": "#e9dcc1",
+        "text": "#59451e",
+        "border": "#8a6b2e"
+      },
+      "danger": {
+        "background": "#e8c9c9",
+        "text": "#6f3038",
+        "border": "#98505b"
+      },
+      "success": {
+        "background": "#ceddd3",
+        "text": "#2e5744",
+        "border": "#537863"
+      }
+    },
+    "dark": {
+      "info": {
+        "background": "#253e49",
+        "text": "#c0dce5",
+        "border": "#74a1b0"
+      },
+      "warning": {
+        "background": "#493f2e",
+        "text": "#f0d7a1",
+        "border": "#c5a05d"
+      },
+      "danger": {
+        "background": "#4b3037",
+        "text": "#f0c2c9",
+        "border": "#c87b88"
+      },
+      "success": {
+        "background": "#293f37",
+        "text": "#c2ddcf",
+        "border": "#75a48d"
+      }
+    }
+  },
+  "themes": {
+    "caltagirone-dusk": {
+      "displayName": "Caltagirone Dusk",
+      "description": "Ceramic navy, weathered blue, brass, wine pink, and warm limestone.",
+      "light": {
+        "browserThemeColor": "#153249",
+        "colors": {
+          "canvas": "#eee7da",
+          "surface": "#f8f2e8",
+          "raised": "#e5d9c8",
+          "wash": "#d6e0e0",
+          "text": "#172a36",
+          "muted": "#565d5b",
+          "navy": "#153249",
+          "onNavy": "#f8f2e8",
+          "blue": "#6f94a9",
+          "blueInk": "#315f76",
+          "brass": "#b58b3e",
+          "brassInk": "#765a28",
+          "action": "#b58b3e",
+          "actionHover": "#c7a25f",
+          "onAction": "#13283a",
+          "pink": "#8e3f54",
+          "link": "#8e3f54",
+          "linkHover": "#6f2f40",
+          "border": "#cdbfac",
+          "borderStrong": "#9b8c79",
+          "focus": "#8e3f54",
+          "focusInverse": "#c7a25f",
+          "purple": "#655077"
+        }
+      },
+      "dark": {
+        "browserThemeColor": "#0b1720",
+        "colors": {
+          "canvas": "#101c25",
+          "surface": "#192832",
+          "raised": "#233641",
+          "wash": "#2b4350",
+          "text": "#eee7da",
+          "muted": "#b8b1a5",
+          "navy": "#0b1720",
+          "onNavy": "#f2eadf",
+          "blue": "#88adbf",
+          "blueInk": "#88adbf",
+          "brass": "#d0ae63",
+          "brassInk": "#d0ae63",
+          "action": "#d0ae63",
+          "actionHover": "#e0c47f",
+          "onAction": "#132532",
+          "pink": "#d18a9c",
+          "link": "#d18a9c",
+          "linkHover": "#e6a4b3",
+          "border": "#344b57",
+          "borderStrong": "#667a82",
+          "focus": "#d0ae63",
+          "focusInverse": "#d0ae63",
+          "purple": "#c3aed1"
+        }
+      }
+    },
+    "etna-travertine": {
+      "displayName": "Etna & Travertine",
+      "description": "Volcanic charcoal, smoky navy, travertine, ash, aged brass, and dusty rose.",
+      "light": {
+        "browserThemeColor": "#273e4e",
+        "colors": {
+          "canvas": "#e8e1d5",
+          "surface": "#f2ece2",
+          "raised": "#ddd4c6",
+          "wash": "#d7ddd5",
+          "text": "#222d31",
+          "muted": "#59615e",
+          "navy": "#273e4e",
+          "onNavy": "#f2ece2",
+          "blue": "#728b96",
+          "blueInk": "#3d626f",
+          "brass": "#9a7749",
+          "brassInk": "#6e532e",
+          "action": "#b89a6b",
+          "actionHover": "#c9ae81",
+          "onAction": "#18252d",
+          "pink": "#a97a7e",
+          "link": "#744651",
+          "linkHover": "#56333d",
+          "border": "#c7bbaa",
+          "borderStrong": "#918474",
+          "focus": "#744651",
+          "focusInverse": "#c9ae81",
+          "purple": "#655077"
+        }
+      },
+      "dark": {
+        "browserThemeColor": "#162329",
+        "colors": {
+          "canvas": "#1b252a",
+          "surface": "#243137",
+          "raised": "#354345",
+          "wash": "#2c3a3d",
+          "text": "#ece5d9",
+          "muted": "#b8b2a8",
+          "navy": "#162329",
+          "onNavy": "#f2ece2",
+          "blue": "#92aab3",
+          "blueInk": "#92aab3",
+          "brass": "#c6a777",
+          "brassInk": "#c6a777",
+          "action": "#c6a777",
+          "actionHover": "#d8bc8d",
+          "onAction": "#18252d",
+          "pink": "#d1a0a3",
+          "link": "#e0b1b3",
+          "linkHover": "#f0c6c7",
+          "border": "#3e4d4f",
+          "borderStrong": "#718083",
+          "focus": "#c6a777",
+          "focusInverse": "#c6a777",
+          "purple": "#c3aed1"
+        }
+      }
+    },
+    "conca-doro": {
+      "displayName": "Conca d'Oro",
+      "description": "Warm limestone, citrus orange, terracotta, brass, and structural navy.",
+      "light": {
+        "browserThemeColor": "#18364a",
+        "colors": {
+          "canvas": "#f0e3cc",
+          "surface": "#faf1e2",
+          "raised": "#e2cdaa",
+          "wash": "#e8d8b8",
+          "text": "#252a2b",
+          "muted": "#60564b",
+          "navy": "#18364a",
+          "onNavy": "#fff2dc",
+          "blue": "#7394a0",
+          "blueInk": "#315b6b",
+          "brass": "#ba8431",
+          "brassInk": "#704a1c",
+          "action": "#dc8137",
+          "actionHover": "#e9964e",
+          "onAction": "#172b38",
+          "pink": "#a85f70",
+          "link": "#91401e",
+          "linkHover": "#713018",
+          "border": "#cab997",
+          "borderStrong": "#8d7b62",
+          "focus": "#8e3e1e",
+          "focusInverse": "#e9aa4a",
+          "purple": "#6f5060"
+        }
+      },
+      "dark": {
+        "browserThemeColor": "#0c1a24",
+        "colors": {
+          "canvas": "#151d22",
+          "surface": "#202b30",
+          "raised": "#354047",
+          "wash": "#33382f",
+          "text": "#f2e3ca",
+          "muted": "#beb3a1",
+          "navy": "#0c1a24",
+          "onNavy": "#fff1d9",
+          "blue": "#91b0bb",
+          "blueInk": "#91b0bb",
+          "brass": "#d5ac5a",
+          "brassInk": "#d5ac5a",
+          "action": "#e38a3b",
+          "actionHover": "#f2a654",
+          "onAction": "#172733",
+          "pink": "#d58a95",
+          "link": "#f3a06a",
+          "linkHover": "#ffc195",
+          "border": "#3e4a48",
+          "borderStrong": "#75807d",
+          "focus": "#f0a44b",
+          "focusInverse": "#f0a44b",
+          "purple": "#d5a6bd"
+        }
+      }
+    }
+  }
+}

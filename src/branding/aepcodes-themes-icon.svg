@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img">
+  <title>AEPCodes Themes color palette icon</title>
+  <defs>
+    <mask id="thumb-cutout">
+      <rect width="256" height="256" fill="#ffffff" />
+      <circle cx="164" cy="151" r="17" fill="#000000" />
+    </mask>
+  </defs>
+  <path
+    d="M128 16C66.1 16 16 66.1 16 128s50.1 112 112 112c37 0 70-18 90-47-17-6-26-22-22-39 4-18 21-29 43-26C239.5 66 189.6 16 128 16Z"
+    fill="#f8f2e8"
+    stroke="#153249"
+    stroke-width="12"
+    stroke-linejoin="round"
+    mask="url(#thumb-cutout)"
+  />
+  <g stroke="#153249" stroke-width="6">
+    <circle cx="89" cy="61" r="20" fill="#6f94a9" />
+    <circle cx="148" cy="57" r="20" fill="#b58b3e" />
+    <circle cx="196" cy="91" r="20" fill="#8e3f54" />
+    <circle cx="55" cy="116" r="20" fill="#e38a3b" />
+    <circle cx="75" cy="176" r="20" fill="#91401e" />
+    <circle cx="126" cy="204" r="20" fill="#655077" />
+    <circle cx="164" cy="151" r="17" fill="none" stroke-width="7" />
+  </g>
+</svg>

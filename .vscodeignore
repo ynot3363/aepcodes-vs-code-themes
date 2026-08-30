@@ -1,0 +1,10 @@
+.DS_Store
+.gitignore
+.nvmrc
+.vscode/**
+.vscodeignore
+node_modules/**
+scripts/**
+src/**
+*.vsix
+package-lock.json
