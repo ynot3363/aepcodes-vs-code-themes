@@ -2,7 +2,7 @@
   "name": "aepcodes-themes",
   "displayName": "AEPCodes Themes",
   "description": "Six warm, tactile light and dark color themes for Visual Studio Code.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "publisher": "aepcodes",
   "license": "AGPL-3.0-only",
   "icon": "images/aepcodes-themes-icon.png",

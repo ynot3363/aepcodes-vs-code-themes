@@ -120,11 +120,20 @@ const REQUIRED_WORKBENCH_COLORS = [
   "activityBar.foreground",
   "activityBar.inactiveForeground",
   "activityBar.activeBorder",
+  "activityBar.activeBackground",
+  "activityBar.activeFocusBorder",
+  "activityBarTop.background",
+  "activityBarTop.foreground",
+  "activityBarTop.inactiveForeground",
+  "activityBarTop.activeBackground",
+  "activityBarTop.activeBorder",
+  "activityBarTop.dropBorder",
   "activityBarBadge.background",
   "activityBarBadge.foreground",
   "sideBar.background",
   "sideBar.foreground",
   "sideBar.border",
+  "sideBarActivityBarTop.border",
   "sideBarSectionHeader.background",
   "sideBarSectionHeader.foreground",
   "titleBar.activeBackground",
@@ -391,6 +400,23 @@ function checkTheme(theme, expected, palettes) {
   const label = expected.label;
   const palette = palettes.themes[expected.slug][expected.appearance].colors;
   const status = palettes.status[expected.appearance];
+  const git = palettes.git[expected.appearance];
+  const dark = expected.appearance === "dark";
+  const selected = dark ? palette.action : palette.navy;
+  const onSelected = dark ? palette.onAction : palette.onNavy;
+  const listActiveBackground = dark ? selected : palette.wash;
+  const listActiveForeground = dark ? onSelected : palette.navy;
+  const listInactiveBackground = dark
+    ? `${selected}2e`
+    : palette.raised;
+  const listInactiveForeground = dark ? palette.text : palette.navy;
+  const listFocusBackground = dark ? `${selected}3d` : palette.wash;
+  const listInactiveFocusBackground = dark ? `${selected}1f` : palette.raised;
+  const listFocusAndSelectionOutline = dark
+    ? palette.onAction
+    : palette.focus;
+  const activityActiveBackground = dark ? palette.wash : palette.onNavy;
+  const activityActiveForeground = dark ? palette.onNavy : palette.navy;
 
   if (theme.$schema !== "vscode://schemas/color-theme") {
     fail(`${label}: missing the VS Code color-theme schema`);
@@ -436,6 +462,29 @@ function checkTheme(theme, expected, palettes) {
     "button.background": palette.action,
     "button.foreground": palette.onAction,
     "textLink.foreground": palette.link,
+    "list.activeSelectionBackground": listActiveBackground,
+    "list.activeSelectionForeground": listActiveForeground,
+    "list.activeSelectionIconForeground": listActiveForeground,
+    "list.inactiveSelectionBackground": listInactiveBackground,
+    "list.inactiveSelectionForeground": listInactiveForeground,
+    "list.inactiveSelectionIconForeground": listInactiveForeground,
+    "list.focusBackground": listFocusBackground,
+    "list.focusForeground": listInactiveForeground,
+    "list.inactiveFocusBackground": listInactiveFocusBackground,
+    "list.focusAndSelectionOutline": listFocusAndSelectionOutline,
+    "activityBar.background": palette.navy,
+    "activityBar.foreground": activityActiveForeground,
+    "activityBar.activeBackground": activityActiveBackground,
+    "activityBarTop.background": palette.navy,
+    "activityBarTop.foreground": activityActiveForeground,
+    "activityBarTop.activeBackground": activityActiveBackground,
+    "gitDecoration.addedResourceForeground": git.added,
+    "gitDecoration.modifiedResourceForeground": git.modified,
+    "gitDecoration.deletedResourceForeground": git.deleted,
+    "gitDecoration.renamedResourceForeground": git.renamed,
+    "gitDecoration.untrackedResourceForeground": git.added,
+    "gitDecoration.stageModifiedResourceForeground": git.modified,
+    "gitDecoration.stageDeletedResourceForeground": git.deleted,
   };
   for (const [key, color] of Object.entries(expectedWorkbenchMappings)) {
     if (theme.colors[key] !== color) {
@@ -446,6 +495,7 @@ function checkTheme(theme, expected, palettes) {
   const allowedBases = new Set([
     ...Object.values(palette),
     ...Object.values(status).flatMap((entry) => Object.values(entry)),
+    ...Object.values(git),
     "#02070a",
     "#080e12",
   ]);
@@ -581,9 +631,6 @@ function checkTheme(theme, expected, palettes) {
     fail(`${label}: all 16 terminal ANSI colors must be distinct`);
   }
 
-  const selected = expected.appearance === "dark" ? palette.action : palette.navy;
-  const onSelected =
-    expected.appearance === "dark" ? palette.onAction : palette.onNavy;
   const contrastPairs = [
     ["editor text", palette.text, palette.surface],
     ["editor comments", palette.muted, palette.surface],
@@ -607,8 +654,35 @@ function checkTheme(theme, expected, palettes) {
       theme.colors["diffEditor.unchangedRegionBackground"],
     ],
     ["title bar", palette.onNavy, palette.navy],
+    [
+      "selected activity bar item",
+      theme.colors["activityBar.foreground"],
+      theme.colors["activityBar.activeBackground"],
+    ],
+    [
+      "selected activity bar item with workbench foreground fallback",
+      theme.colors.foreground,
+      theme.colors["activityBar.activeBackground"],
+    ],
+    [
+      "selected top activity bar item",
+      theme.colors["activityBarTop.foreground"],
+      theme.colors["activityBarTop.activeBackground"],
+    ],
     ["buttons", palette.onAction, palette.action],
-    ["selected lists", onSelected, selected],
+    [
+      "selected lists",
+      theme.colors["list.activeSelectionForeground"],
+      theme.colors["list.activeSelectionBackground"],
+    ],
+    [
+      "inactive selected lists",
+      theme.colors["list.inactiveSelectionForeground"],
+      composite(
+        theme.colors["list.inactiveSelectionBackground"],
+        theme.colors["sideBar.background"],
+      ),
+    ],
     [
       "selected-list focus outline",
       theme.colors["list.focusAndSelectionOutline"],
@@ -621,6 +695,40 @@ function checkTheme(theme, expected, palettes) {
   ];
   for (const [pairName, foreground, background] of contrastPairs) {
     checkContrast(`${label}: ${pairName}`, foreground, background, 4.5);
+  }
+  const gitColors = [git.added, git.modified, git.deleted, git.renamed];
+  if (new Set(gitColors).size !== gitColors.length) {
+    fail(`${label}: core Git decoration colors must be distinct`);
+  }
+  const inactiveExplorerSelection = composite(
+    theme.colors["list.inactiveSelectionBackground"],
+    theme.colors["sideBar.background"],
+  );
+  const activeExplorerSelection = composite(
+    theme.colors["list.activeSelectionBackground"],
+    theme.colors["sideBar.background"],
+  );
+  for (const [state, color] of Object.entries(git)) {
+    checkContrast(
+      `${label}: Git ${state} decoration on Explorer`,
+      color,
+      theme.colors["sideBar.background"],
+      4.5,
+    );
+    if (!dark) {
+      checkContrast(
+        `${label}: Git ${state} decoration on active Explorer selection`,
+        color,
+        activeExplorerSelection,
+        4.5,
+      );
+    }
+    checkContrast(
+      `${label}: Git ${state} decoration on inactive Explorer selection`,
+      color,
+      inactiveExplorerSelection,
+      4.5,
+    );
   }
   checkContrast(
     `${label}: welcome progress indicator`,
@@ -771,6 +879,22 @@ async function run() {
 
   if (palettes.primitiveOrder?.length !== 23) {
     fail("src/palettes.json: expected exactly 23 primitive names");
+  }
+  const gitKeys = ["added", "modified", "deleted", "renamed"];
+  for (const appearance of ["light", "dark"]) {
+    const git = palettes.git?.[appearance];
+    if (
+      !git ||
+      JSON.stringify(Object.keys(git)) !== JSON.stringify(gitKeys)
+    ) {
+      fail(`src/palettes.json: ${appearance} Git colors are missing or unordered`);
+      continue;
+    }
+    for (const [state, color] of Object.entries(git)) {
+      if (!/^#[0-9a-f]{6}$/.test(color)) {
+        fail(`src/palettes.json: ${appearance} Git ${state} color is invalid`);
+      }
+    }
   }
   for (const [slug, definition] of Object.entries(palettes.themes ?? {})) {
     for (const appearance of ["light", "dark"]) {

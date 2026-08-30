@@ -2,6 +2,12 @@
 
 All notable changes to AEPCodes Themes are documented here.
 
+## 1.0.3 - 2026-08-30
+
+- Increased Explorer Git-decoration contrast for added, modified, deleted, and renamed files.
+- Added clearer selected-file backgrounds to light themes while preserving dark-theme list selections.
+- Improved selected Activity Bar icon contrast across traditional and top or bottom placements.
+
 ## 1.0.2 - 2026-08-30
 
 - Improved native comment gutter button contrast across all light and dark themes.

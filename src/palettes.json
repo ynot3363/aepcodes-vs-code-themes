@@ -71,6 +71,20 @@
       }
     }
   },
+  "git": {
+    "light": {
+      "added": "#0f5e32",
+      "modified": "#704500",
+      "deleted": "#8f2031",
+      "renamed": "#14546e"
+    },
+    "dark": {
+      "added": "#79d6a3",
+      "modified": "#eac45f",
+      "deleted": "#e98e9a",
+      "renamed": "#79bed3"
+    }
+  },
   "themes": {
     "caltagirone-dusk": {
       "displayName": "Caltagirone Dusk",
