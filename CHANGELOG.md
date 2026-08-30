@@ -2,6 +2,11 @@
 
 All notable changes to AEPCodes Themes are documented here.
 
+## 1.0.2 - 2026-08-30
+
+- Improved native comment gutter button contrast across all light and dark themes.
+- Added explicit colors for normal, unresolved, and draft comment glyphs.
+
 ## 1.0.1 - 2026-08-30
 
 - Added repository, homepage, and issue-tracker links to the extension metadata.
