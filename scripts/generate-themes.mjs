@@ -28,6 +28,8 @@ function workbenchColors(palette, status, appearance) {
   const info = dark ? status.info.border : status.info.text;
   const shadow = dark ? "#02070ab8" : "#080e1294";
   const transparent = alpha(palette.navy, 0);
+  const commentBackground = dark ? palette.raised : palette.action;
+  const commentForeground = dark ? palette.action : palette.onAction;
 
   const colors = {
     "foreground": palette.text,
@@ -305,9 +307,10 @@ function workbenchColors(palette, status, appearance) {
 
     "editorGutter.background": palette.surface,
     "editorGutter.foldingControlForeground": palette.muted,
-    "editorGutter.commentRangeForeground": palette.blueInk,
-    "editorGutter.commentGlyphForeground": palette.link,
-    "editorGutter.commentUnresolvedGlyphForeground": palette.brassInk,
+    "editorGutter.commentRangeForeground": commentBackground,
+    "editorGutter.commentGlyphForeground": commentForeground,
+    "editorGutter.commentUnresolvedGlyphForeground": commentForeground,
+    "editorGutter.commentDraftGlyphForeground": commentForeground,
     "editorGutter.addedBackground": success,
     "editorGutter.modifiedBackground": info,
     "editorGutter.deletedBackground": danger,
