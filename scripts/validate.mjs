@@ -95,6 +95,8 @@ const REQUIRED_WORKBENCH_COLORS = [
   "input.foreground",
   "input.border",
   "input.placeholderForeground",
+  "inputOption.activeBackground",
+  "inputOption.activeForeground",
   "inputValidation.infoBackground",
   "inputValidation.infoForeground",
   "inputValidation.infoBorder",
@@ -399,6 +401,8 @@ function tokenRule(theme, name) {
 function checkTheme(theme, expected, palettes) {
   const label = expected.label;
   const palette = palettes.themes[expected.slug][expected.appearance].colors;
+  const titleForeground =
+    palettes.themes[expected.slug][expected.appearance].titleBarForeground ?? palette.onNavy;
   const status = palettes.status[expected.appearance];
   const git = palettes.git[expected.appearance];
   const dark = expected.appearance === "dark";
@@ -458,7 +462,7 @@ function checkTheme(theme, expected, palettes) {
     "editor.foreground": palette.text,
     "sideBar.background": palette.canvas,
     "titleBar.activeBackground": palette.navy,
-    "titleBar.activeForeground": palette.onNavy,
+    "titleBar.activeForeground": titleForeground,
     "button.background": palette.action,
     "button.foreground": palette.onAction,
     "textLink.foreground": palette.link,
@@ -494,6 +498,7 @@ function checkTheme(theme, expected, palettes) {
 
   const allowedBases = new Set([
     ...Object.values(palette),
+    titleForeground,
     ...Object.values(status).flatMap((entry) => Object.values(entry)),
     ...Object.values(git),
     "#02070a",
@@ -653,7 +658,11 @@ function checkTheme(theme, expected, palettes) {
       theme.colors["diffEditor.unchangedRegionForeground"],
       theme.colors["diffEditor.unchangedRegionBackground"],
     ],
-    ["title bar", palette.onNavy, palette.navy],
+    [
+      "title bar",
+      theme.colors["titleBar.activeForeground"],
+      theme.colors["titleBar.activeBackground"],
+    ],
     [
       "selected activity bar item",
       theme.colors["activityBar.foreground"],
@@ -695,6 +704,44 @@ function checkTheme(theme, expected, palettes) {
   ];
   for (const [pairName, foreground, background] of contrastPairs) {
     checkContrast(`${label}: ${pairName}`, foreground, background, 4.5);
+  }
+  for (const backgroundKey of [
+    "titleBar.activeBackground",
+    "titleBar.inactiveBackground",
+    "editor.background",
+  ]) {
+    checkContrast(
+      `${label}: toolbar hover text on ${backgroundKey}`,
+      theme.colors.foreground,
+      composite(theme.colors["toolbar.hoverBackground"], theme.colors[backgroundKey]),
+      4.5,
+    );
+    if (!dark) {
+      checkContrast(
+        `${label}: toolbar hover outline on ${backgroundKey}`,
+        theme.colors["toolbar.hoverOutline"],
+        composite(theme.colors["toolbar.hoverBackground"], theme.colors[backgroundKey]),
+        3,
+      );
+    }
+  }
+  // Filtered agent status counts use inputOption colors on the navy title bar.
+  // The same colors must still work for selected options on input surfaces.
+  for (const backgroundKey of [
+    "titleBar.activeBackground",
+    "titleBar.inactiveBackground",
+    "commandCenter.activeBackground",
+    "input.background",
+  ]) {
+    checkContrast(
+      `${label}: selected input option on ${backgroundKey}`,
+      theme.colors["inputOption.activeForeground"],
+      composite(
+        theme.colors["inputOption.activeBackground"],
+        composite(theme.colors[backgroundKey], theme.colors["titleBar.activeBackground"]),
+      ),
+      4.5,
+    );
   }
   const gitColors = [git.added, git.modified, git.deleted, git.renamed];
   if (new Set(gitColors).size !== gitColors.length) {

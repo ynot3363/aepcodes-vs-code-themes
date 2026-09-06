@@ -18,7 +18,13 @@ function alpha(color, opacity) {
   return `${color}${channel}`.toLowerCase();
 }
 
-function workbenchColors(palette, status, git, appearance) {
+function workbenchColors(
+  palette,
+  status,
+  git,
+  appearance,
+  titleForeground = palette.onNavy,
+) {
   const dark = appearance === "dark";
   const selected = dark ? palette.action : palette.navy;
   const onSelected = dark ? palette.onAction : palette.onNavy;
@@ -63,8 +69,10 @@ function workbenchColors(palette, status, git, appearance) {
     "textPreformat.background": palette.surface,
     "textSeparator.foreground": palette.borderStrong,
 
-    "toolbar.hoverBackground": alpha(palette.action, 0.18),
-    "toolbar.hoverOutline": palette.focus,
+    // Open in Agents reveals global foreground text on this hover surface.
+    // Keep it opaque in light themes so the navy title bar cannot darken it.
+    "toolbar.hoverBackground": dark ? alpha(palette.action, 0.18) : palette.raised,
+    "toolbar.hoverOutline": dark ? palette.focus : palette.blueInk,
     "toolbar.activeBackground": alpha(palette.action, 0.3),
     "button.background": palette.action,
     "button.foreground": palette.onAction,
@@ -85,8 +93,10 @@ function workbenchColors(palette, status, git, appearance) {
     "input.foreground": palette.text,
     "input.border": palette.muted,
     "input.placeholderForeground": palette.muted,
-    "inputOption.activeBackground": alpha(selected, 0.2),
-    "inputOption.activeForeground": palette.text,
+    // Active options also appear in the title bar's agent status controls.
+    // Use an opaque selection in light themes to work on both light and navy.
+    "inputOption.activeBackground": dark ? alpha(selected, 0.2) : selected,
+    "inputOption.activeForeground": dark ? palette.text : onSelected,
     "inputOption.activeBorder": palette.focus,
     "inputOption.hoverBackground": alpha(selected, 0.12),
     "inputValidation.infoBackground": status.info.background,
@@ -176,7 +186,7 @@ function workbenchColors(palette, status, git, appearance) {
     "sideBarStickyScroll.shadow": shadow,
 
     "titleBar.activeBackground": palette.navy,
-    "titleBar.activeForeground": palette.onNavy,
+    "titleBar.activeForeground": titleForeground,
     "titleBar.inactiveBackground": palette.navy,
     "titleBar.inactiveForeground": alpha(palette.onNavy, 0.68),
     "titleBar.border": palette.focusInverse,
@@ -1380,7 +1390,13 @@ function buildTheme(source, slug, appearance) {
     "name": `${definition.displayName} ${appearanceLabel}`,
     "type": appearance,
     "semanticHighlighting": true,
-    "colors": workbenchColors(palette, status, git, appearance),
+    "colors": workbenchColors(
+      palette,
+      status,
+      git,
+      appearance,
+      definition[appearance].titleBarForeground,
+    ),
     "tokenColors": tokenColors(palette, status),
     "semanticTokenColors": semanticTokenColors(palette, status),
   };

@@ -91,6 +91,7 @@
       "description": "Ceramic navy, weathered blue, brass, wine pink, and warm limestone.",
       "light": {
         "browserThemeColor": "#153249",
+        "titleBarForeground": "#7d9daf",
         "colors": {
           "canvas": "#eee7da",
           "surface": "#f8f2e8",
@@ -151,6 +152,7 @@
       "description": "Volcanic charcoal, smoky navy, travertine, ash, aged brass, and dusty rose.",
       "light": {
         "browserThemeColor": "#273e4e",
+        "titleBarForeground": "#98a8ad",
         "colors": {
           "canvas": "#e8e1d5",
           "surface": "#f2ece2",
@@ -211,6 +213,7 @@
       "description": "Warm limestone, citrus orange, terracotta, brass, and structural navy.",
       "light": {
         "browserThemeColor": "#18364a",
+        "titleBarForeground": "#85a0a8",
         "colors": {
           "canvas": "#f0e3cc",
           "surface": "#faf1e2",

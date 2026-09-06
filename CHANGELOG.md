@@ -2,6 +2,14 @@
 
 All notable changes to AEPCodes Themes are documented here.
 
+## 1.0.4 - 2026-09-06
+
+- Improved selected agent status count readability in light themes with solid navy selections and light text.
+- Added opaque toolbar hover backgrounds so the Open in Agents label is readable on the navy title bar.
+- Tuned light-theme title bar foregrounds to muted blue-gray and changed toolbar hover outlines to dark blue.
+- Preserved the existing navy title bar backgrounds and dark themes.
+- Added contrast checks for title bar text, toolbar hover text and outlines, and selected input options.
+
 ## 1.0.3 - 2026-08-30
 
 - Increased Explorer Git-decoration contrast for added, modified, deleted, and renamed files.
